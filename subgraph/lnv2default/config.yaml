@@ -1,0 +1,72 @@
+name: LnDefaultBridge
+contracts:
+  - name: LnDefaultBridge
+    abi_file_path: ./abis/LnDefaultBridge.json
+    handler: ./src/LnDefaultBridge.ts
+    events:
+      - event: TokenLocked
+        receipt: true
+        timestamp: true
+      - event: LnProviderUpdated
+        receipt: true
+        timestamp: true
+      - event: TransferFilled
+        receipt: true
+        timestamp: true
+      - event: Slash
+        receipt: true
+        timestamp: true
+      - event: MarginUpdated
+        receipt: true
+        timestamp: true
+networks:
+  - id: 42161
+    name: arbitrum
+    urls:
+      - url: https://arb1.arbitrum.io/rpc
+      - url: https://arbitrum.llamarpc.com
+      - url: https://rpc.ankr.com/arbitrum
+      - url: https://1rpc.io/arb
+      - url: https://arb-pokt.nodies.app
+    start_block: 143123443
+    scan_range: 2000
+    scan_interval: 1000
+    reorg: 5
+    contracts:
+      - name: LnDefaultBridge
+        address: "0x94C614DAeFDbf151E1BB53d6A201ae5fF56A9337"
+  - id: 137
+    name: polygon-pos
+    urls:
+      - url: https://polygon-rpc.com
+      - url: https://rpc.ankr.com/polygon
+      - url: https://polygon.llamarpc.com
+      - url: https://endpoints.omniatech.io/v1/matic/mainnet/public
+      - url: https://rpc-mainnet.matic.quiknode.pro
+      - url: https://polygon-pokt.nodies.app
+      - url: https://polygon-mainnet.public.blastapi.io
+      - url: https://1rpc.io/matic
+      - url: https://polygon-bor-rpc.publicnode.com
+      - url: https://polygon.api.onfinality.io/public
+      - url: https://polygon.drpc.org
+      - url: https://rpc-mainnet.matic.network
+    start_block: 49357709
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 5
+    contracts:
+      - name: LnDefaultBridge
+        address: "0x94C614DAeFDbf151E1BB53d6A201ae5fF56A9337"
+  - id: 46
+    name: darwinia
+    urls:
+      - url: https://rpc.darwinia.network
+      - url: https://darwinia-rpc.dcdao.box
+      - url: https://darwinia-rpc.dwellir.com
+    start_block: 1423237
+    scan_range: 1500
+    scan_interval: 3000
+    reorg: 2
+    contracts:
+      - name: LnDefaultBridge
+        address: "0x94C614DAeFDbf151E1BB53d6A201ae5fF56A9337"

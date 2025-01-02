@@ -1,0 +1,18 @@
+import { Args, Query, Mutation, Resolver } from '@nestjs/graphql';
+import { #Generate#Service } from './#generate#.service';
+import { Prisma } from '@prisma/client';
+#ImportGraphql#
+
+@Resolver()
+export class #Generate#Resolver {
+  constructor(private generateService: #Generate#Service) {}
+
+  @Query()
+  chainData(
+    @Args('id') id: number,
+  ) {
+    return this.generateService.eventService.chainData(id);
+  }
+
+  #QueryMethods#
+}

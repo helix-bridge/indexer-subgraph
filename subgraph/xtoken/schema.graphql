@@ -1,0 +1,46 @@
+type XTokenNonceOrder @entity {
+  id: ID!
+  count: BigInt!
+}
+
+type TransferRecord @entity {
+  id: ID!
+  messageId: String!
+  direction: String!
+  localChainId: BigInt!
+  remoteChainId: BigInt!
+  nonce: BigInt!
+  sender: Bytes!
+  receiver: String!
+  token: Bytes!
+  amount: String!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  fee: String?
+  userNonce: String!
+  extData: String!
+}
+
+type RefundTransferRecord @entity {
+  id: ID!
+  localChainId: BigInt!
+  sourceId: String?
+  timestamp: BigInt?
+  transactionHash: Bytes?
+}
+
+type MessageDispatchedResult @entity {
+  id: ID!
+  localChainId: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  token: Bytes?
+  result: Int?
+}
+
+type TransferId2MessageId @entity {
+  id: ID!
+  localChainId: BigInt!
+  messageId: String!
+}
+

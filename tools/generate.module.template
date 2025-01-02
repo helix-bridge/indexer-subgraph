@@ -1,0 +1,25 @@
+import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
+import { Module } from '@nestjs/common';
+import { #Generate#Resolver } from './#generate#.resolver';
+import { #Generate#Service } from './#generate#.service';
+import { EventModule } from '../service/event.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { BigIntResolver } from 'graphql-scalars';
+
+@Module({
+  imports: [
+      EventModule,
+      GraphQLModule.forRoot<ApolloDriverConfig>({
+          path: '#generate#/graphql',
+          driver: ApolloDriver,
+          typePaths: ['./src/.generate/#generate#.schema.graphql'],
+          include: [#Generate#Module],
+          resolvers: {
+              BigInt: BigIntResolver,
+          }
+      })
+  ],
+  providers: [#Generate#Service, #Generate#Resolver],
+  exports: [#Generate#Service],
+})
+export class #Generate#Module {}

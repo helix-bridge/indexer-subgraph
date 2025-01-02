@@ -1,0 +1,19 @@
+import { INestApplication, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Prisma } from "@prisma/client";
+import { prismaClientGlobal } from '../events/scan';
+import { EventService } from '../service/event.service';
+#ImportGraphql#
+
+@Injectable()
+export class #Generate#Service implements OnModuleInit {
+  private readonly logger = new Logger('webservice');
+
+  async onModuleInit() {}
+
+  constructor(
+    public eventService: EventService
+  ) {
+  }
+
+  #QueryMethods#
+}

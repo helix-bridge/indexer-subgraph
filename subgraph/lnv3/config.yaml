@@ -1,0 +1,253 @@
+name: HelixLnBridgeV3
+contracts:
+  - name: HelixLnBridgeV3
+    abi_file_path: ./abis/HelixLnBridgeV3.json
+    handler: ./src/HelixLnBridgeV3.ts
+    events:
+      - event: TokenLocked
+        receipt: true
+        timestamp: true
+      - event: LnProviderUpdated
+        receipt: true
+        timestamp: true
+      - event: PenaltyReserveUpdated
+        receipt: true
+        timestamp: true
+      - event: SlashRequest
+        receipt: true
+        timestamp: true
+      - event: TransferFilled
+        receipt: true
+        timestamp: true
+      - event: LiquidityWithdrawn
+        receipt: true
+        timestamp: true
+      - event: LiquidityWithdrawRequested
+        receipt: true
+        timestamp: true
+      - event: LnProviderPaused
+        receipt: true
+        timestamp: true
+networks:
+  - id: 42161
+    name: arbitrum
+    urls:
+      - url: https://arb1.arbitrum.io/rpc
+      - url: https://arbitrum.llamarpc.com
+      - url: https://rpc.ankr.com/arbitrum
+      - url: https://1rpc.io/arb
+      - url: https://arb-pokt.nodies.app
+    start_block: 175318915
+    scan_range: 2000
+    scan_interval: 1000
+    reorg: 5
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 137
+    name: polygon-pos
+    urls:
+      - url: https://polygon-rpc.com
+      - url: https://rpc.ankr.com/polygon
+      - url: https://polygon.llamarpc.com
+      - url: https://endpoints.omniatech.io/v1/matic/mainnet/public
+      - url: https://rpc-mainnet.matic.quiknode.pro
+      - url: https://polygon-pokt.nodies.app
+      - url: https://polygon-mainnet.public.blastapi.io
+      - url: https://1rpc.io/matic
+      - url: https://polygon-bor-rpc.publicnode.com
+      - url: https://polygon.api.onfinality.io/public
+      - url: https://polygon.drpc.org
+      - url: https://rpc-mainnet.matic.network
+    start_block: 52848029
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 5
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 59144
+    name: linea
+    urls:
+      - url: https://rpc.linea.build
+      - url: https://1rpc.io/linea
+      - url: https://linea.drpc.org
+      - url: https://linea.blockpi.network/v1/rpc/public
+      - url: https://linea.decubate.com
+    start_block: 1938417
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 10
+    name: op
+    urls:
+      - url: https://mainnet.optimism.io
+      - url: https://optimism.llamarpc.com
+      - url: https://1rpc.io/op
+      - url: https://op-pokt.nodies.app
+      - url: https://rpc.ankr.com/optimism
+      - url: https://optimism-mainnet.public.blastapi.io
+      - url: https://endpoints.omniatech.io/v1/op/mainnet/public
+      - url: https://optimism.api.onfinality.io/public
+      - url: https://optimism-rpc.publicnode.com
+      - url: https://optimism.meowrpc.com
+      - url: https://optimism.drpc.org
+      - url: https://optimism.gateway.tenderly.co
+    start_block: 115540206
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 100
+    name: gnosis
+    urls:
+      - url: https://rpc.gnosischain.com
+      - url: https://gnosis-pokt.nodies.app
+      - url: https://rpc.gnosis.gateway.fm
+      - url: https://gnosis-mainnet.public.blastapi.io
+      - url: https://rpc.ankr.com/gnosis
+      - url: https://gnosis.drpc.org
+      - url: https://gnosis-rpc.publicnode.com
+      - url: https://1rpc.io/gnosis
+    start_block: 32215168
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 3
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 5000
+    name: mantle
+    urls:
+      - url: https://rpc.mantle.xyz
+      - url: https://mantle-mainnet.public.blastapi.io
+      - url: https://mantle-rpc.publicnode.com
+      - url: https://mantle.drpc.org
+      - url: https://rpc.ankr.com/mantle
+      - url: https://1rpc.io/mantle
+    start_block: 51738488
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 534352
+    name: scroll
+    urls:
+      - url: https://rpc.scroll.io
+      - url: https://1rpc.io/scroll
+      - url: https://scroll.drpc.org
+      - url: https://rpc.ankr.com/scroll
+      - url: https://scroll-mainnet.public.blastapi.io
+      - url: https://scroll.blockpi.network/v1/rpc/public
+    start_block: 2932126
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 1284
+    name: moonbeam
+    urls:
+      - url: https://rpc.api.moonbeam.network
+      - url: https://moonbeam.api.onfinality.io/public
+      - url: https://1rpc.io/glmr
+      - url: https://moonbeam.drpc.org
+      - url: https://moonbeam-rpc.dwellir.com
+      - url: https://moonbeam.public.blastapi.io
+      - url: https://rpc.ankr.com/moonbeam
+    start_block: 6154143
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 48900
+    name: zircuit
+    urls:
+      - url: https://zircuit1-mainnet.p2pify.com
+      - url: https://zircuit-mainnet.drpc.org
+      - url: https://zircuit1-mainnet.liquify.com
+    start_block: 1579391
+    scan_range: 2000
+    scan_interval: 5000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 46
+    name: darwinia
+    urls:
+      - url: https://rpc.darwinia.network
+      - url: https://darwinia-rpc.dcdao.box
+      - url: https://darwinia-rpc.dwellir.com
+    start_block: 2013481
+    scan_range: 1500
+    scan_interval: 3000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 8453
+    name: base
+    urls:
+      - url: https://mainnet.base.org
+      - url: https://base.llamarpc.com
+      - url: https://1rpc.io/base
+    start_block: 18548669
+    rewrite: false
+    scan_range: 2000
+    scan_interval: 3000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 2818
+    name: morph
+    urls:
+      - url: https://rpc.morphl2.io
+    start_block: 40829
+    rewrite: false
+    scan_interval: 3000
+    scan_range: 2000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xCcD566F8dA3643A9948A1509cde0D0324D32d19b"
+  - id: 43114
+    name: avalanche
+    urls:
+      - url: https://avalanche.public-rpc.com
+      - url: https://api.avax.network/ext/bc/C/rpc
+      - url: https://rpc.ankr.com/avalanche
+      - url: https://1rpc.io/avax/c
+      - url: https://avalanche.drpc.org
+      - url: https://avalanche-c-chain-rpc.publicnode.com
+    start_block: 49156180
+    rewrite: false
+    scan_interval: 3000
+    scan_range: 2000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 3776
+    name: astar-zkevm
+    urls:
+      - url: https://rpc.startale.com/astar-zkevm
+    start_block: 1039985
+    rewrite: false
+    scan_interval: 3000
+    scan_range: 2000
+    reorg: 2
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xD476650e03a45E70202b0bcAfa04E1513920f83a"

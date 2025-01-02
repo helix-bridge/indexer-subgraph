@@ -1,0 +1,45 @@
+type LnNonceOrder @entity {
+  id: ID!
+  count: BigInt!
+}
+
+type Lnv2RelayUpdateRecord @entity {
+  id: ID!
+  remoteChainId: BigInt!
+  localChainId: BigInt!
+  updateType: Int!
+  provider: Bytes!
+  sourceToken: Bytes!
+  targetToken: Bytes!
+  transactionHash: Bytes!
+  timestamp: Int!
+  margin: String?
+  baseFee: String?
+  liquidityFeeRate: BigInt?
+  nonce: BigInt!
+}
+
+type Lnv2TransferRecord @entity {
+  id: ID!
+  remoteChainId: BigInt!
+  localChainId: BigInt!
+  nonce: BigInt!
+  sender: Bytes!
+  receiver: Bytes!
+  provider: Bytes!
+  sourceToken: Bytes!
+  targetToken: Bytes!
+  amount: String!
+  timestamp: Int!
+  transactionHash: Bytes!
+  fee: String?
+}
+
+type Lnv2RelayRecord @entity {
+  id: ID!
+  slasher: Bytes?
+  localChainId: BigInt!
+  transactionHash: Bytes!
+  timestamp: Int!
+  fee: String?
+}

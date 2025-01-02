@@ -1,0 +1,35 @@
+export class TEMPLATE extends Entity {
+  private created: boolean = false;
+  constructor(id: string) {
+      super();
+      this.set("id", id);
+  }
+
+  async save(): Promise<void> {
+      if (this.created) {
+          await prismaClientGlobal.TEMPLATE_PRISMA.update({
+              where: { id: this.id },
+              data: {//FieldsInit
+              },
+          });
+      } else {
+          await prismaClientGlobal.TEMPLATE_PRISMA.create({
+              data: {//FieldsInit
+              },
+          });
+      }
+  }
+
+  static async load(id: string): Promise<TEMPLATE | null> {
+      const record = await prismaClientGlobal.TEMPLATE_PRISMA.findUnique({
+          where: {id: id},
+      });
+      if (record === null) {
+          return null;
+      }
+      const result = new TEMPLATE(id);//FieldsAssign
+      result.created = true;
+      return result;
+  }
+  //getOrSetMethods
+}

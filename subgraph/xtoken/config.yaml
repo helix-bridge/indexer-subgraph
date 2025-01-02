@@ -1,0 +1,155 @@
+name: XToken
+contracts:
+  - name: XTokenBacking
+    abi_file_path: ./abis/XTokenBacking.json
+    handler: ./src/XTokenBacking.ts
+    events:
+      - event: TokenLocked
+        receipt: true
+        timestamp: true
+      - event: RemoteIssuingFailure
+        receipt: true
+        timestamp: true
+  - name: XTokenIssuing
+    abi_file_path: ./abis/XTokenIssuing.json
+    handler: ./src/XTokenIssuing.ts
+    events:
+      - event: BurnAndXUnlocked
+        receipt: true
+        timestamp: true
+      - event: RollbackLockAndXIssueRequested
+        receipt: true
+        timestamp: true
+  - name: MsglineMessager
+    abi_file_path: ./abis/MsglineMessager.json
+    handler: ./src/MessageDispatch.ts
+    events:
+      - event: CallResult
+        receipt: true
+        timestamp: true
+  - name: ormp
+    abi_file_path: ./abis/ormp.json
+    handler: ./src/MessageDispatch.ts
+    events:
+      - event: MessageDispatched
+        receipt: true
+        timestamp: true
+  - name: Guard
+    abi_file_path: ./abis/Guard.json
+    handler: ./src/Guard.ts
+    events:
+      - event: TokenDeposit
+        receipt: true
+        timestamp: true
+      - event: TokenClaimed
+        receipt: true
+        timestamp: true
+networks:
+  - id: 701
+    name: koi
+    disable: true
+    urls:
+      - url: https://koi-rpc.darwinia.network
+    start_block: 671105
+    scan_range: 2000
+    scan_interval: 5000
+    contracts:
+      - name: XTokenBacking
+        address: "0x2c841103557112d99923956eB9b9b4a05ef042af"
+      - name: MsglineMessager
+        address: "0x3a245f8C3daEC18Fd7Df247f4Fcb6FA2A3f2FceF"
+      - name: ormp
+        address: "0x13b2211a7cA45Db2808F6dB05557ce5347e3634e"
+  - id: 2494104990
+    name: tron-shasta
+    disable: true
+    urls:
+      - url: https://api.shasta.trongrid.io/jsonrpc
+    start_block: 46619828
+    scan_range: 2000
+    scan_interval: 5000
+    contracts:
+      - name: XTokenIssuing
+        address: "0xe57d12ba78d565613b52a35f0b4a9ac3b71f6119"
+      - name: MsglineMessager
+        address: "0xBa9D1c0eb186f97cFAAC4cA798Ca04FB9bdA2B07"
+      - name: ormp
+        address: "0x924A4b87900A8CE8F8Cf62360Db047C4e4fFC1a3"
+  - id: 46
+    name: darwinia-dvm
+    urls:
+      - url: https://rpc.darwinia.network
+      - url: https://darwinia-rpc.dwellir.com
+      - url: https://darwinia-rpc.dcdao.box
+    start_block: 2358854
+    scan_range: 2000
+    scan_interval: 1000
+    contracts:
+      - name: XTokenBacking
+        address: "0x7defE0f6105a9498376B72FFfaedf102A2f63cD5"
+      - name: XTokenBacking
+        address: "0xa64D1c284280b22f921E7B2A55040C7bbfD4d9d0"
+      - name: XTokenBacking
+        address: "0x2B496f19A420C02490dB859fefeCCD71eDc2c046"
+      - name: XTokenIssuing
+        address: "0xf6372ab2d35B32156A19F2d2F23FA6dDeFBE58bd"
+      - name: MsglineMessager
+        address: "0x65Be094765731F394bc6d9DF53bDF3376F1Fc8B0"
+      - name: MsglineMessager
+        address: "0x682294d1c00a9ca13290b53b7544b8f734d6501f"
+      - name: Guard
+        address: "0x4CA75992d2750BEC270731A72DfDedE6b9E71cC7"
+      - name: ormp
+        address: "0x13b2211a7cA45Db2808F6dB05557ce5347e3634e"
+  - id: 728126428
+    name: tron
+    urls:
+      - url: https://api.trongrid.io/jsonrpc
+      - url: https://rpc.ankr.com/tron_jsonrpc
+    start_block: 64725741
+    scan_range: 2000
+    scan_interval: 5000
+    contracts:
+      - name: XTokenIssuing
+        address: "0x364c8e473156a30da29e640c0485db1e4464539d"
+      - name: MsglineMessager
+        address: "0x13fd60a93fed8141875378ba57500c5e554c93f2"
+      - name: ormp
+        address: "0x5c5c383febe62f377f8c0ea1de97f2a2ba102e98"
+  - id: 44
+    name: crab-dvm
+    urls:
+      - url: https://crab-rpc.darwinia.network
+      - url: https://crab-rpc.dcdao.box
+    start_block: 2515870
+    scan_range: 2000
+    scan_interval: 1000
+    contracts:
+      - name: XTokenBacking
+        address: "0xa64D1c284280b22f921E7B2A55040C7bbfD4d9d0"
+      - name: XTokenIssuing
+        address: "0xf6372ab2d35B32156A19F2d2F23FA6dDeFBE58bd"
+      - name: MsglineMessager
+        address: "0x65Be094765731F394bc6d9DF53bDF3376F1Fc8B0"
+      - name: ormp
+        address: "0x13b2211a7cA45Db2808F6dB05557ce5347e3634e"
+  - id: 1
+    name: ethereum
+    urls:
+      - url: https://eth.llamarpc.com
+      - url: https://rpc.ankr.com/eth
+      - url: https://1rpc.io/eth
+      - url: https://rpc.builder0x69.io
+      - url: https://eth-mainnet.public.blastapi.io
+      - url: https://rpc.flashbots.net
+    start_block: 19537485
+    scan_range: 2000
+    scan_interval: 5000
+    contracts:
+      - name: MsglineMessager
+        address: "0x02e5C0a36Fb0C83CCEBCD4D6177A7E223D6f0b7c"
+      - name: ormp
+        address: "0x13b2211a7ca45db2808f6db05557ce5347e3634e"
+      - name: Guard
+        address: "0x4CA75992d2750BEC270731A72DfDedE6b9E71cC7"
+

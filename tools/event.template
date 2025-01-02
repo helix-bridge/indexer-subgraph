@@ -1,0 +1,14 @@
+export class TEMPLATE extends Event {
+  get params(): TEMPLATE__Params {
+    return new TEMPLATE__Params(this);
+  }
+}
+
+export class TEMPLATE__Params {
+  _event: TEMPLATE;
+
+  constructor(event: TEMPLATE) {
+    this._event = event;
+  }
+  //getOrSetMethods
+}

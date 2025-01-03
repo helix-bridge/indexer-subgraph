@@ -63,6 +63,7 @@ interface ContractEvent {
 }
 
 interface ContractConf {
+    subgraph: string;
     name: string;
     address: string;
     prefix: string;
@@ -70,7 +71,6 @@ interface ContractConf {
 }
 
 interface NetworkConf {
-    subgraph: string;
     chainId: bigint;
     chainName: string;
     urls: string[];
@@ -293,7 +293,6 @@ export class ConfigureGenerator {
           let existNetwork = this.networks.find(n => n.chainId === network.id);
           if (existNetwork === undefined) {
               existNetwork = {
-                  subgraph: subgraphDir,
                   chainId: network.id,
                   chainName: network.name,
                   urls: network.urls.map(u => u.url),
@@ -321,6 +320,7 @@ export class ConfigureGenerator {
                   throw new Error(`contract not configured ${contract.name}`);
               }
               existNetwork.contracts.push({
+                  subgraph: subgraphDir,
                   name: contract.name,
                   prefix: contractConf,
                   address: contract.address,
@@ -668,7 +668,7 @@ export class ConfigureGenerator {
 
           for (const contract of network.contracts) {
               codes += `    scan_${network.chainId}.addEventHandler(\n`;
-              codes += `      "${network.subgraph}",\n`;
+              codes += `      "${contract.subgraph}",\n`;
               codes += `      "${contract.address}",\n`;
               codes += `      [\n`;
               for (const event of contract.events) {

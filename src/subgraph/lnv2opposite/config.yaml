@@ -70,3 +70,18 @@ networks:
     contracts:
       - name: LnOppositeBridge
         address: "0x48d769d5C7ff75703cDd1543A1a2ed9bC9044A23"
+  - id: 1
+    name: ethereum
+    urls:
+      - url: https://eth.llamarpc.com
+      - url: https://rpc.ankr.com/eth
+      - url: https://1rpc.io/eth
+      - url: https://rpc.builder0x69.io
+      - url: https://eth-mainnet.public.blastapi.io
+      - url: https://rpc.flashbots.net
+    start_block: 18375248
+    scan_range: 2000
+    scan_interval: 5000
+    contracts:
+      - name: LnOppositeBridge
+        address: "0x48d769d5C7ff75703cDd1543A1a2ed9bC9044A23"

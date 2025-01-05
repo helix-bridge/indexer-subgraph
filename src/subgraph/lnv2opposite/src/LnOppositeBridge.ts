@@ -137,6 +137,7 @@ export async function handleTransferFilled(event: TransferFilled): Promise<void>
       entity = new Lnv2RelayRecord(message_id);
   }
   entity.timestamp = event.blockTimestamp;
+  entity.localChainId = event.context.chainId;
   entity.transactionHash = event.transaction.hash;
   entity.fee = (event.transaction.gasUsed * event.transaction.gasPrice).toString();
   await entity.save();

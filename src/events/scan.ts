@@ -3,6 +3,7 @@ import { Logger } from '@nestjs/common';
 import { ethers } from "ethers";
 import { Transaction, EventContext } from './event.base';
 import { PrismaClient } from "@prisma/client";
+import { IndexLogger } from "../utils/logger";
 
 export const prismaClientGlobal: PrismaClient = new PrismaClient();
 
@@ -42,7 +43,7 @@ export interface EventABI {
 }
 
 export class ScanLogs {
-    private readonly logger = new Logger("scan");
+    private readonly logger: IndexLogger;
     public lastScannedBlock: number = 0;
     public cacheLatestBlock: number = 0;
     public scanedEventCount: number = 0;
@@ -63,6 +64,7 @@ export class ScanLogs {
         public rewrite: boolean,
     ) {
         this.provider = new ethers.JsonRpcProvider(urls[0]);
+        this.logger = IndexLogger.getGlobalLogger();
     }
 
     async getBlockByNumber(blockNumber: number) {
@@ -214,6 +216,8 @@ export class ScanLogs {
                             this.logger.log(
                                 `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at block ${log.blockNumber} in tx ${log.transactionHash}`
                             );
+                            this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg);
+                            this.logger.renderBars();
                             await handler.handler({
                                 name: parsedLog.name,
                                 args: args,
@@ -229,9 +233,12 @@ export class ScanLogs {
                     update: { blockNumber: endBlock, scanedEvent: this.scanedEventCount },
                     create: { id: this.chainId.toString(), blockNumber: endBlock, scanedEvent: this.scanedEventCount },
                 });
+                this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg);
+                this.logger.renderBars();
             }
         } catch(err) {
             this.logger.warn(`scan logs failed, url: ${this.urls[this.nextURL]} ${err}`);
+            this.logger.renderBars();
             this.nextURL++;
             if (this.nextURL >= this.urls.length) {
                 this.nextURL = 0;

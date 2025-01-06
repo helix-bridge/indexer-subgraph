@@ -53,7 +53,7 @@ export async function handleTokenDeposit(event: TokenDeposit): Promise<void> {
   entity.transactionHash = event.transaction.hash;
   entity.token = event.params.token;
   entity.result = STATUS_PENDING_TOCLAIM;
-  entity.save();
+  await entity.save();
 
   const transferId = "0x" + event.params.id.toString(16);
   let idEntity = await TransferId2MessageId.load(transferId);
@@ -62,7 +62,7 @@ export async function handleTokenDeposit(event: TokenDeposit): Promise<void> {
   }
   idEntity.localChainId = event.context.chainId;
   idEntity.messageId = messageId;
-  idEntity.save();
+  await idEntity.save();
 }
 
 export async function handleTokenClaimed(event: TokenClaimed): Promise<void> {
@@ -78,6 +78,6 @@ export async function handleTokenClaimed(event: TokenClaimed): Promise<void> {
   entity.localChainId = event.context.chainId;
   entity.transactionHash = event.transaction.hash;
   entity.result = STATUS_CLAIMED;
-  entity.save();
+  await entity.save();
 }
 

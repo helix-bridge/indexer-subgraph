@@ -113,6 +113,7 @@ export class ScanLogs {
     async scan() {
         if (this.isScanning) return;
         this.isScanning = true;
+        const startTimestamp = Date.now()/1000;
         try {
             if (this.cacheLatestBlock <= this.lastScannedBlock + this.scanRange) {
                 this.cacheLatestBlock = await this.provider.getBlockNumber();
@@ -237,7 +238,8 @@ export class ScanLogs {
                 this.logger.renderBars();
             }
         } catch(err) {
-            this.logger.warn(`scan logs failed, url: ${this.urls[this.nextURL]} ${err}`);
+            const endTimestamp = Date.now()/1000;
+            this.logger.warn(`scan logs failed cost ${(endTimestamp-startTimestamp).toFixed(2)}, url: ${this.urls[this.nextURL]} ${err}`);
             this.logger.renderBars();
             this.nextURL++;
             if (this.nextURL >= this.urls.length) {

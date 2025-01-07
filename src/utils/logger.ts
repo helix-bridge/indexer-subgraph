@@ -16,6 +16,9 @@ export class IndexLogger extends ConsoleLogger {
 
     static getGlobalLogger(): IndexLogger {
         if (!this.globalLogger) {
+            console.log = (...args: any[]) => {
+                return;
+            }
             this.globalLogger = new IndexLogger();
         }
         return this.globalLogger;
@@ -57,7 +60,7 @@ export class IndexLogger extends ConsoleLogger {
           const totalRows = process.stdout.rows;
           const reservedRows = Math.floor(this.bars.length/this.itemsEachRow) + 1;
           this.bars.forEach((bar, index) => {
-              const row = totalRows - reservedRows + index/this.itemsEachRow;
+              const row = totalRows - reservedRows + Math.floor(index/this.itemsEachRow);
               if (index % this.itemsEachRow === 0) {
                   process.stdout.write(`\x1B[${row + 1};0H`);
                   process.stdout.write('\x1B[2K');
@@ -96,16 +99,17 @@ export class IndexLogger extends ConsoleLogger {
         const offlineThreshold = 60;
         const now = Date.now()/1000;
         this.bars.forEach((bar, index) => {
-            let icon = now > bar.updateTime + offlineThreshold ? '❗' : bar.total === bar.current ? '✅' : '🔀';
+            let icon = now > bar.updateTime + offlineThreshold ? '🆘' : bar.total === bar.current ? '✅' : '🔀';
             const progress = Math.floor((bar.current/bar.total)*10);
+            const progressColor = progress <= 5 ? 31 : progress <= 8 ? 33 : 32;
             const progressBar = `${'█'.repeat(progress)}${'░'.repeat(10-progress)}`;
-            const line = `${icon} ${bar.label}:[${progressBar}](${bar.current}/${bar.total})`;
-            const row = totalRows - reservedRows + index/this.itemsEachRow;
+            const line = `${icon} ${bar.label}: [\x1B[${progressColor}m${progressBar}](${bar.current}/\x1B[32m${bar.total}\x1B[0m)`;
+            const row = totalRows - reservedRows + Math.floor(index/this.itemsEachRow);
             if (index % this.itemsEachRow === 0) {
                 process.stdout.write(`\x1B[${row + 1};0H`);
                 process.stdout.write('\x1B[2K');
             }
-            process.stdout.write(`\x1B[1;${31+index%this.itemsEachRow}m${line}\x1B[0m  `);
+            process.stdout.write(`${line}  `);
         });
     }
 }

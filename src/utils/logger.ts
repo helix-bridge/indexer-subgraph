@@ -2,7 +2,7 @@ import { ConsoleLogger, Injectable, LogLevel } from '@nestjs/common';
 
 @Injectable()
 export class IndexLogger extends ConsoleLogger {
-    private bars: { id: string, label: string, total: number, current: number }[] = [];
+    private bars: { id: string, label: string, total: number, current: number, updateTime: number }[] = [];
     private customContext = 'App';
     private readonly itemsEachRow = 4;
     private static globalLogger: IndexLogger;
@@ -58,8 +58,10 @@ export class IndexLogger extends ConsoleLogger {
           const reservedRows = Math.floor(this.bars.length/this.itemsEachRow) + 1;
           this.bars.forEach((bar, index) => {
               const row = totalRows - reservedRows + index/this.itemsEachRow;
-              process.stdout.write(`\x1B[${row + 1};0H`);
-              process.stdout.write('\x1B[2K');
+              if (index % this.itemsEachRow === 0) {
+                  process.stdout.write(`\x1B[${row + 1};0H`);
+                  process.stdout.write('\x1B[2K');
+              }
           });
           const row = totalRows - reservedRows;
           process.stdout.write(`\x1B[${row + 1};0H`);
@@ -74,10 +76,13 @@ export class IndexLogger extends ConsoleLogger {
     upinsertBar(id: string, label: string, current: number, total: number) {
         const bar = this.bars.find(b => b.id === id);
         if (bar) {
+            if (bar.total < total || bar.current < current) {
+                bar.updateTime = Date.now()/1000;
+            }
             bar.current = Math.min(current, total);
             bar.total = total;
         } else {
-            this.bars.push({id, label, total, current});
+            this.bars.push({id, label, total, current, updateTime: Date.now()/1000});
         }
     }
 
@@ -88,10 +93,13 @@ export class IndexLogger extends ConsoleLogger {
             this.log('Too many progress bars for terminal height.');
             return;
         }
+        const offlineThreshold = 60;
+        const now = Date.now()/1000;
         this.bars.forEach((bar, index) => {
+            let icon = now > bar.updateTime + offlineThreshold ? '❗' : bar.total === bar.current ? '✅' : '🔀';
             const progress = Math.floor((bar.current/bar.total)*10);
             const progressBar = `${'█'.repeat(progress)}${'░'.repeat(10-progress)}`;
-            const line = `${bar.label}:[${progressBar}](${bar.current}/${bar.total})`;
+            const line = `${icon} ${bar.label}:[${progressBar}](${bar.current}/${bar.total})`;
             const row = totalRows - reservedRows + index/this.itemsEachRow;
             if (index % this.itemsEachRow === 0) {
                 process.stdout.write(`\x1B[${row + 1};0H`);

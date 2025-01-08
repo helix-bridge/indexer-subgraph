@@ -2,9 +2,9 @@ import { ConsoleLogger, Injectable, LogLevel } from '@nestjs/common';
 
 @Injectable()
 export class IndexLogger extends ConsoleLogger {
-    private bars: { id: string, label: string, total: number, current: number, updateTime: number }[] = [];
+    private bars: { id: string, label: string, total: number, current: number, updateTime: number, costTime: number }[] = [];
     private customContext = 'App';
-    private readonly itemsEachRow = 4;
+    private readonly itemsEachRow = 3;
     private static globalLogger: IndexLogger;
 
     constructor(context?: string) {
@@ -76,7 +76,7 @@ export class IndexLogger extends ConsoleLogger {
       };
     }
 
-    upinsertBar(id: string, label: string, current: number, total: number) {
+    upinsertBar(id: string, label: string, current: number, total: number, costTime: number) {
         const bar = this.bars.find(b => b.id === id);
         if (bar) {
             if (bar.total < total || bar.current < current) {
@@ -84,8 +84,11 @@ export class IndexLogger extends ConsoleLogger {
             }
             bar.current = Math.min(current, total);
             bar.total = total;
+            if (costTime > 0) {
+                bar.costTime = costTime;
+            }
         } else {
-            this.bars.push({id, label, total, current, updateTime: Date.now()/1000});
+            this.bars.push({id, label, total, current, updateTime: Date.now()/1000, costTime: costTime});
         }
     }
 
@@ -109,7 +112,8 @@ export class IndexLogger extends ConsoleLogger {
                 process.stdout.write(`\x1B[${row + 1};0H`);
                 process.stdout.write('\x1B[2K');
             }
-            process.stdout.write(`${line}  `);
+            const costColor = bar.costTime <= 2 ? 32 : bar.costTime < 10 ? 33 : 31;
+            process.stdout.write(`${line} [\x1B[${costColor}m${bar.costTime.toFixed(2)}\x1B[0m] `);
         });
     }
 }

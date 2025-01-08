@@ -306,12 +306,19 @@ export class ConfigureGenerator {
               this.networks.push(existNetwork);
           } else {
               existNetwork.urls.concat(network.urls.map(u => u.url));
-              existNetwork.minStartBlock < network.start_block ? existNetwork.minStartBlock : network.start_block;
               existNetwork.minScanRange < network.scan_range ? existNetwork.minScanRange : network.scan_range;
               existNetwork.maxReorg >= (network.reorg ?? 0) ? existNetwork.maxReorg : network.reorg;
               existNetwork.scanInterval < network.scan_interval ? existNetwork.scanInterval : network.scan_interval;
               if (network.rewrite) {
+                  if (!existNetwork.rewrite) {
+                      existNetwork.minStartBlock = network.start_block;
+                  } else {
+                      existNetwork.minStartBlock < network.start_block ? existNetwork.minStartBlock : network.start_block;
+                  }
                   existNetwork.rewrite = network.rewrite;
+              }
+              if (!existNetwork.rewrite) {
+                  existNetwork.minStartBlock < network.start_block ? existNetwork.minStartBlock : network.start_block;
               }
           }
           for (const contract of network.contracts) {

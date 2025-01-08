@@ -83,6 +83,7 @@ networks:
       - url: https://darwinia-rpc.dcdao.box
     start_block: 2358854
     scan_range: 2000
+    reorg: 20
     scan_interval: 1000
     contracts:
       - name: XTokenBacking

@@ -214,8 +214,10 @@ export class ScanLogs {
                             address: log.address.toLowerCase(),
                         };
                         for (const handler of eventHandler.handlers) {
+                            const now = Date.now()/1000;
+                            const cost = timestamp !== null ? `cost ${(now-timestamp).toFixed()}` : "";
                             this.logger.log(
-                                `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at block ${log.blockNumber} in tx ${log.transactionHash}`
+                                `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at ${log.blockNumber} in tx ${log.transactionHash} ${cost}`
                             );
                             this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg, 0);
                             this.logger.renderBars();

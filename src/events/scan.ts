@@ -220,7 +220,7 @@ export class ScanLogs {
                                 `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at ${log.blockNumber} in tx ${log.transactionHash} ${cost}`
                             );
                             this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg, 0);
-                            this.logger.renderBars();
+                            this.logger.renderBars(`scan-${this.chainId}`);
                             await handler.handler({
                                 name: parsedLog.name,
                                 args: args,
@@ -238,12 +238,12 @@ export class ScanLogs {
                 });
                 const endTimestamp = Date.now()/1000;
                 this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg, endTimestamp - startTimestamp);
-                this.logger.renderBars();
+                this.logger.renderBars(`scan-${this.chainId}`);
             }
         } catch(err) {
             const endTimestamp = Date.now()/1000;
             this.logger.warn(`scan logs failed cost ${(endTimestamp-startTimestamp).toFixed(2)}, url: ${this.urls[this.nextURL]} ${err}`);
-            this.logger.renderBars();
+            this.logger.renderBars(null);
             this.nextURL++;
             if (this.nextURL >= this.urls.length) {
                 this.nextURL = 0;

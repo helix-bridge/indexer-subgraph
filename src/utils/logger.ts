@@ -92,7 +92,7 @@ export class IndexLogger extends ConsoleLogger {
         }
     }
 
-    renderBars() {
+    renderBars(id: string | null) {
         const totalRows = process.stdout.rows;
         const reservedRows = Math.floor(this.bars.length/this.itemsEachRow) + 1;
         if (reservedRows > totalRows) {
@@ -106,7 +106,8 @@ export class IndexLogger extends ConsoleLogger {
             const progress = Math.floor((bar.current/bar.total)*10);
             const progressColor = progress <= 5 ? 31 : progress <= 8 ? 33 : 32;
             const progressBar = `${'█'.repeat(progress)}${'░'.repeat(10-progress)}`;
-            const line = `${icon} ${bar.label}: [\x1B[${progressColor}m${progressBar}](${bar.current}/\x1B[32m${bar.total}\x1B[0m)`;
+            const label = bar.id === id ? `\x1B[35m${bar.label}\x1B[0m` : `${bar.label}`;
+            const line = `${icon} ${label}: [\x1B[${progressColor}m${progressBar}](${bar.current}/\x1B[32m${bar.total}\x1B[0m)`;
             const row = totalRows - reservedRows + Math.floor(index/this.itemsEachRow);
             if (index % this.itemsEachRow === 0) {
                 process.stdout.write(`\x1B[${row + 1};0H`);

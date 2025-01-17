@@ -251,3 +251,47 @@ networks:
     contracts:
       - name: HelixLnBridgeV3
         address: "0xD476650e03a45E70202b0bcAfa04E1513920f83a"
+  - id: 56
+    name: bsc
+    urls:
+      - url: https://rpc.ankr.com/bsc
+      - url: https://binance.llamarpc.com
+      - url: https://bsc-dataseed.bnbchain.org
+      - url: https://bsc-dataseed1.defibit.io
+      - url: https://bsc-dataseed1.ninicoin.io
+      - url: https://bsc-dataseed2.defibit.io
+      - url: https://bsc-dataseed3.defibit.io
+      - url: https://bsc-dataseed4.defibit.io
+      - url: https://bsc-dataseed2.ninicoin.io
+      - url: https://bsc-dataseed3.ninicoin.io
+      - url: https://bsc-dataseed4.ninicoin.io
+      - url: https://bsc-dataseed1.bnbchain.org
+      - url: https://bsc-dataseed2.bnbchain.org
+      - url: https://bsc-dataseed3.bnbchain.org
+      - url: https://bsc-dataseed4.bnbchain.org
+    start_block: 35684060
+    rewrite: false
+    scan_interval: 5000
+    scan_range: 2000
+    reorg: 10
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"
+  - id: 81457
+    name: blast
+    urls:
+      - url: https://rpc.blast.io
+      - url: https://blast.din.dev/rpc
+      - url: https://rpc.ankr.com/blast
+      - url: https://blastl2-mainnet.public.blastapi.io
+      - url: https://blast.drpc.org
+      - url: https://rpc.ankr.com/blast
+      - url: https://blast-rpc.publicnode.com
+    start_block: 459939
+    scan_interval: 5000
+    scan_range: 2000
+    reorg: 10
+    contracts:
+      - name: HelixLnBridgeV3
+        address: "0xB180D7DcB5CC161C862aD60442FA37527546cAFC"
+

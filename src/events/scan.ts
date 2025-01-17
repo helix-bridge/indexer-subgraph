@@ -242,7 +242,7 @@ export class ScanLogs {
             }
         } catch(err) {
             const endTimestamp = Date.now()/1000;
-            this.logger.warn(`scan logs failed cost ${(endTimestamp-startTimestamp).toFixed(2)}, url: ${this.urls[this.nextURL]} ${err}`);
+            this.logger.warn(`scan logs failed cost ${(endTimestamp-startTimestamp).toFixed(2)}, url: ${this.urls[this.nextURL]} ${err.message}`);
             this.logger.renderBars(null);
             this.nextURL++;
             if (this.nextURL >= this.urls.length) {

@@ -125,6 +125,7 @@ networks:
     start_block: 2515870
     scan_range: 2000
     scan_interval: 1000
+    reorg: 20
     contracts:
       - name: XTokenBacking
         address: "0xa64D1c284280b22f921E7B2A55040C7bbfD4d9d0"

@@ -40,7 +40,7 @@ networks:
     start_block: 175318915
     scan_range: 2000
     scan_interval: 1000
-    reorg: 5
+    reorg: 50
     contracts:
       - name: HelixLnBridgeV3
         address: "0xbA5D580B18b6436411562981e02c8A9aA1776D10"

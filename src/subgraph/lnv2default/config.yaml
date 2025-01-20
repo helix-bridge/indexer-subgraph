@@ -31,7 +31,7 @@ networks:
     start_block: 143123443
     scan_range: 2000
     scan_interval: 1000
-    reorg: 5
+    reorg: 50
     contracts:
       - name: LnDefaultBridge
         address: "0x94C614DAeFDbf151E1BB53d6A201ae5fF56A9337"

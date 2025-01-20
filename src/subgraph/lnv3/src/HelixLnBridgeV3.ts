@@ -58,7 +58,7 @@ export async function handleLiquidityWithdrawRequested(event: LiquidityWithdrawR
     const transferId = event.params.transferIds[i];
     let entity = await Lnv3RelayRecord.load(transferId);
     if (entity == null) {
-      return;
+      continue;
     }
     entity.requestWithdrawTimestamp = event.blockTimestamp;
     await entity.save();
@@ -106,7 +106,7 @@ export async function handleLiquidityWithdrawn(event: LiquidityWithdrawn): Promi
     const transferId = event.params.transferIds[i];
     let entity = await Lnv3TransferRecord.load(transferId);
     if (entity == null) {
-      return;
+      continue;
     }
     entity.hasWithdrawn = true;
     await entity.save();

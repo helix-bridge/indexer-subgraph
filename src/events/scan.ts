@@ -230,15 +230,15 @@ export class ScanLogs {
                         }
                     }
                 }
-                this.lastScannedBlock = endBlock;
                 await prismaClientGlobal.lastBlock.upsert({
                     where: { id: this.chainId.toString() },
                     update: { blockNumber: endBlock, scanedEvent: this.scanedEventCount },
                     create: { id: this.chainId.toString(), blockNumber: endBlock, scanedEvent: this.scanedEventCount },
                 });
                 const endTimestamp = Date.now()/1000;
-                this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg, endTimestamp - startTimestamp);
+                this.logger.upinsertBar(`scan-${this.chainId}`, this.name, endBlock, this.cacheLatestBlock-this.reorg, endTimestamp - startTimestamp);
                 this.logger.renderBars(`scan-${this.chainId}`);
+                this.lastScannedBlock = endBlock;
             }
         } catch(err) {
             const endTimestamp = Date.now()/1000;

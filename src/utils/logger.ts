@@ -110,7 +110,7 @@ export class IndexLogger extends ConsoleLogger {
         const offlineThreshold = 60;
         const now = Date.now()/1000;
         this.bars.forEach((bar, index) => {
-            let icon = now > bar.updateTime + offlineThreshold ? '🆘' : bar.total >= bar.current + bar.reserved ? '✅' : '🔀';
+            let icon = now > bar.updateTime + offlineThreshold ? '🆘' : bar.total <= bar.current + bar.reserved + 1 ? '✅' : '🔀';
             const progress = Math.floor((bar.current/bar.total)*10);
             const progressColor = progress <= 5 ? 31 : progress <= 8 ? 33 : 32;
             const progressBar = `${'█'.repeat(progress)}${'░'.repeat(10-progress)}`;

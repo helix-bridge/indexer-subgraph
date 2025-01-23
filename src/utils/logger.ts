@@ -2,7 +2,15 @@ import { ConsoleLogger, Injectable, LogLevel } from '@nestjs/common';
 
 @Injectable()
 export class IndexLogger extends ConsoleLogger {
-    private bars: { id: string, label: string, total: number, current: number, updateTime: number, costTime: number }[] = [];
+    private bars: {
+        id: string,
+        label: string,
+        total: number,
+        current: number,
+        reserved: number,
+        updateTime: number,
+        costTime: number
+    }[] = [];
     private customContext = 'App';
     private readonly itemsEachRow = 3;
     private static globalLogger: IndexLogger;
@@ -76,7 +84,7 @@ export class IndexLogger extends ConsoleLogger {
       };
     }
 
-    upinsertBar(id: string, label: string, current: number, total: number, costTime: number) {
+    upinsertBar(id: string, label: string, current: number, total: number, reserved: number, costTime: number) {
         const bar = this.bars.find(b => b.id === id);
         if (bar) {
             if (bar.total < total || bar.current < current) {
@@ -88,7 +96,7 @@ export class IndexLogger extends ConsoleLogger {
                 bar.costTime = costTime;
             }
         } else {
-            this.bars.push({id, label, total, current, updateTime: Date.now()/1000, costTime: costTime});
+            this.bars.push({id, label, total, current, reserved, updateTime: Date.now()/1000, costTime: costTime});
         }
     }
 
@@ -102,7 +110,7 @@ export class IndexLogger extends ConsoleLogger {
         const offlineThreshold = 60;
         const now = Date.now()/1000;
         this.bars.forEach((bar, index) => {
-            let icon = now > bar.updateTime + offlineThreshold ? '🆘' : bar.total === bar.current ? '✅' : '🔀';
+            let icon = now > bar.updateTime + offlineThreshold ? '🆘' : bar.total >= bar.current + bar.reserved ? '✅' : '🔀';
             const progress = Math.floor((bar.current/bar.total)*10);
             const progressColor = progress <= 5 ? 31 : progress <= 8 ? 33 : 32;
             const progressBar = `${'█'.repeat(progress)}${'░'.repeat(10-progress)}`;

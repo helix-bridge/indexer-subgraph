@@ -219,7 +219,7 @@ export class ScanLogs {
                             this.logger.log(
                                 `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at ${log.blockNumber} in tx ${log.transactionHash} ${cost}`
                             );
-                            this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock-this.reorg, 0);
+                            this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock, this.reorg, 0);
                             this.logger.renderBars(`scan-${this.chainId}`);
                             await handler.handler({
                                 name: parsedLog.name,
@@ -236,7 +236,7 @@ export class ScanLogs {
                     create: { id: this.chainId.toString(), blockNumber: endBlock, scanedEvent: this.scanedEventCount },
                 });
                 const endTimestamp = Date.now()/1000;
-                this.logger.upinsertBar(`scan-${this.chainId}`, this.name, endBlock, this.cacheLatestBlock, endTimestamp - startTimestamp);
+                this.logger.upinsertBar(`scan-${this.chainId}`, this.name, endBlock, this.cacheLatestBlock, this.reorg, endTimestamp - startTimestamp);
                 this.logger.renderBars(`scan-${this.chainId}`);
                 this.lastScannedBlock = endBlock;
             }

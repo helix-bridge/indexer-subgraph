@@ -52,6 +52,7 @@ export class ScanLogs {
     private topics: string[] = [];
     private nextURL: number = 0;
     private isScanning: boolean = false;
+    private lastScanTimestamp: number = 0;
 
     constructor(
         public urls: string[],
@@ -147,10 +148,12 @@ export class ScanLogs {
                 }
                 if (endBlock < this.lastScannedBlock + 1) {
                     this.isScanning = false;
+                    this.lastScanTimestamp = startTimestamp;
                     return;
                 }
                 const keys = Array.from(this.eventHandlers.keys());
                 const addresses: string[] = keys.map(key => key.split("-")[0]);
+                const startScanTimestamp = Date.now()/1000;
                 const logs = await this.provider.getLogs({
                     fromBlock: this.lastScannedBlock + 1,
                     toBlock: endBlock,
@@ -159,6 +162,7 @@ export class ScanLogs {
                         Array.from(new Set(this.topics)),
                     ],
                 });
+                const endScanTimestamp = Date.now()/1000;
                 let blocks = new Map();
                 for (const log of logs) {
                     const key = `${log.address.toLowerCase()}-${log.topics[0]}`;
@@ -216,8 +220,13 @@ export class ScanLogs {
                         for (const handler of eventHandler.handlers) {
                             const now = Date.now()/1000;
                             const cost = timestamp !== null ? `cost ${(now-timestamp).toFixed()}` : "";
+                            const scanCost = (endScanTimestamp-startScanTimestamp).toFixed(3);
+                            const timerCost = (startTimestamp - this.lastScanTimestamp).toFixed(3);
                             this.logger.log(
-                                `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at ${log.blockNumber} in tx ${log.transactionHash} ${cost}`
+                                `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${parsedLog.name} at ${log.blockNumber} in tx ${log.transactionHash}`
+                            );
+                            this.logger.log(
+                                `[${this.name}-${this.chainId}-${handler.subgraph}] Trigger ${cost}, scan ${scanCost}, last ${timerCost}`
                             );
                             this.logger.upinsertBar(`scan-${this.chainId}`, this.name, this.lastScannedBlock, this.cacheLatestBlock, this.reorg, 0);
                             this.logger.renderBars(`scan-${this.chainId}`);
@@ -252,5 +261,6 @@ export class ScanLogs {
             this.provider = new ethers.JsonRpcProvider(this.urls[this.nextURL]);
         }
         this.isScanning = false;
+        this.lastScanTimestamp = startTimestamp;
     }
 }

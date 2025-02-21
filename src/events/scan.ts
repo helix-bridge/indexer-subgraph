@@ -87,7 +87,7 @@ export class ScanLogs {
         // topics
         let topics = abis.map((abi) => {
             return {
-                topic: ethers.id(abi.abi.substr(6)),
+                topic: ethers.id(abi.abi.split(" indexed").join("").substr(6)),
                 abi: abi,
             }
         });

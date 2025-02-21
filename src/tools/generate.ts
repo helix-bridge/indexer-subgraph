@@ -369,7 +369,8 @@ export class ConfigureGenerator {
                   index++;
                   eventWithABI = eventWithABI.slice(0, -1) + "),";
               } else {
-                  eventWithABI += `${input.type},`;
+                  const indexed = input.indexed ? " indexed" : "";
+                  eventWithABI += `${input.type}${indexed},`;
                   const tsType = solidityType2TsType(input.type);
                   if (tsType === undefined) {
                       throw new Error(`can't convert solidity type ${input.type}`);

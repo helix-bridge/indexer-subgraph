@@ -39,7 +39,8 @@ function isXRingConvertor(address: string): boolean {
     return address.toLowerCase() == "0xd06cde9b2a330c5ecedbc48920b502dfc590e5cc" ||
         address.toLowerCase() == "0x53352b535fc38843bf1c04dc863bceca855a4811" ||
         address.toLowerCase() == "0x4cdfe9915d2c72506f4fc2363a8eae032e82d1aa" ||
-        address.toLowerCase() == '0xc29dcb1f12a1618262ef9fba673b77140adc02d6';
+        address.toLowerCase() == '0xc29dcb1f12a1618262ef9fba673b77140adc02d6' ||
+        address.toLowerCase() == '0x3217f36ae34aca2ce60d218af8f47d29101204a8';
 }
 
 function isGuardAddress(address: string): boolean {

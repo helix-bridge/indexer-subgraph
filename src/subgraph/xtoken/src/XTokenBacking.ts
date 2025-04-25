@@ -89,9 +89,11 @@ export async function handleTokenLocked(event: TokenLocked): Promise<void> {
   var messageId: string;
   // find the messageId
   const logs = event.transaction.logs;
-  for (var idx = 0; idx < logs.length; idx++) {
+  // the first Msgline Event before this Event
+  for (var idx = event.context.index; idx >= 0; idx--) {
       if (isMsglineAcceptEvent(logs[idx])) {
           messageId = logs[idx].topics[1];
+          break;
       }
   }
   if (!messageId) {
@@ -105,7 +107,7 @@ export async function handleTokenLocked(event: TokenLocked): Promise<void> {
 export async function handleRemoteIssuingFailure(event: RemoteIssuingFailure): Promise<void> {
   var messageId = '';
   const logs = event.transaction.logs;
-  for (var idx = 0; idx < logs.length; idx++) {
+  for (var idx = event.context.index; idx >= 0; idx--) {
       if (isMsglineAcceptEvent(logs[idx])) {
           messageId = logs[idx].topics[1];
           break;

@@ -24,6 +24,7 @@ export interface EventParam {
 export interface EventContext {
     chainId: bigint;
     address: string;
+    index: number;
 }
 
 export class Event {

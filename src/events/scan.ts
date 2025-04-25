@@ -207,7 +207,7 @@ export class ScanLogs {
                                         address: log.address.toLowerCase(),
                                         data: log.data,
                                         topics: log.topics.map((t) => t),
-                                            index: log.index,
+                                        index: log.index,
                                     };
                                 }),
                             };
@@ -216,6 +216,7 @@ export class ScanLogs {
                         const context: EventContext = {
                             chainId: BigInt(this.chainId),
                             address: log.address.toLowerCase(),
+                            index: Number(BigInt(log.index)),
                         };
                         for (const handler of eventHandler.handlers) {
                             const now = Date.now()/1000;

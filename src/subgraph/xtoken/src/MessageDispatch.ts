@@ -63,7 +63,7 @@ export async function handleCallResult(event: CallResult): Promise<void> {
   // find the messageId
   const logs = event.transaction.logs;
   for (var idx = event.context.index; idx < logs.length; idx++) {
-      if (isMsglineDispatchEvent(logs[idx]) && messageId !== '') {
+      if (isMsglineDispatchEvent(logs[idx]) && messageId === '') {
           messageId = logs[idx].topics[1];
       } else if (isGuardDepositEvent(logs[idx])) {
           usingGuard = true;

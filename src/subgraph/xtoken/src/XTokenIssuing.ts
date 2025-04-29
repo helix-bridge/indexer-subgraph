@@ -91,8 +91,13 @@ export async function handleBurnAndXUnlocked(event: BurnAndXUnlocked): Promise<v
   var messageId: string;
   // find the messageId
   const logs = event.transaction.logs;
-  for (var idx = event.context.index; idx >= 0; idx--) {
-      if (isMsglineAcceptEvent(logs[idx])) {
+  let thisEventFound = false;
+  for (var idx = logs.length - 1; idx >=0; idx--) {
+      if (logs[idx].index === event.context.index) {
+          thisEventFound = true;
+          continue;
+      }
+      if (thisEventFound && isMsglineAcceptEvent(logs[idx])) {
           messageId = logs[idx].topics[1];
           break;
       }
@@ -108,8 +113,13 @@ export async function handleBurnAndXUnlocked(event: BurnAndXUnlocked): Promise<v
 export async function handleRollbackLockAndXIssueRequested(event: RollbackLockAndXIssueRequested): Promise<void> {
   var messageId = '';
   const logs = event.transaction.logs;
-  for (var idx = event.context.index; idx >= 0; idx--) {
-      if (isMsglineAcceptEvent(logs[idx])) {
+  let thisEventFound = false;
+  for (var idx = logs.length - 1; idx >=0; idx--) {
+      if (logs[idx].index === event.context.index) {
+          thisEventFound = true;
+          continue;
+      }
+      if (thisEventFound && isMsglineAcceptEvent(logs[idx])) {
           messageId = logs[idx].topics[1];
           break;
       }

@@ -1,0 +1,19 @@
+version: '3'
+services:
+  sor-indexer:
+    image: xiaoch05/test:v0.0.1
+    restart: always
+    ports:
+      - 0.0.0.0:3001:3001
+    environment:
+      DATABASE_URL: "postgresql://postgres:RW6k8dy_sFwPyJWc@postgres:5432/subgraph?schema=public"
+  postgres:
+    image: postgres:18
+    restart: always
+    command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'RW6k8dy_sFwPyJWc'
+      POSTGRES_DB: 'subgraph'
+    volumes:
+      - ./data:/var/lib/postgresql

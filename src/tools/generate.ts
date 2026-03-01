@@ -118,7 +118,7 @@ export class ConfigureGenerator {
   }
 
   generatePrisma(): string {
-      const header = `generator client {\n  provider = "prisma-client-js"\n  binaryTargets = ["native", "linux-musl"]\n  previewFeatures = ["fullTextSearch"]\n}\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n`;
+      const header = `generator client {\n  provider = "prisma-client-js"\n  binaryTargets = ["native", "linux-musl", "linux-musl-openssl-3.0.x"]\n  previewFeatures = ["fullTextSearch"]\n}\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n`;
       const replaces = [
           {_1: "type ", _2: "model "},
           {_1: "!", _2: ""},

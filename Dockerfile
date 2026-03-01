@@ -1,4 +1,4 @@
-FROM node:20-alpine as builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN yarn install
@@ -7,7 +7,7 @@ COPY . .
 RUN yarn generate
 RUN yarn build
 
-FROM node:20-alpine as indexer-bridge-runner
+FROM node:20-alpine AS indexer-bridge-runner
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
@@ -17,4 +17,4 @@ COPY --from=builder /app/src/.generate/index.schema.prisma ./
 RUN mkdir -p src/.generate
 COPY --from=builder /app/src/.generate ./src/.generate
 RUN apk add --no-cache openssl
-CMD sh -c "sleep 15 && npx prisma migrate dev --name init --schema ./index.schema.prisma && node dist/src/main.js"
+CMD ["sh", "-c", "sleep 15 && npx prisma migrate dev --name init --schema ./index.schema.prisma && node dist/src/main.js"]

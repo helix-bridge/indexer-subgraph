@@ -145,7 +145,9 @@ export class ConfigureGenerator {
               const fullPath = path.join(this.subgraphDir, item);
               const statsDir = fs.statSync(fullPath);
               if (statsDir.isDirectory()) {
-                  const yamlPath = path.join(fullPath, "config.yaml");
+                  const mode = process.env.INDEXER_MODE;
+                  const modeConfigPath = mode ? path.join(fullPath, `${mode}.config.yaml`) : null;
+                  const yamlPath = (modeConfigPath && fs.existsSync(modeConfigPath)) ? modeConfigPath : path.join(fullPath, "config.yaml");
                   const yamlFile = fs.statSync(yamlPath);
                   if (!yamlFile.isFile()) {
                       return;

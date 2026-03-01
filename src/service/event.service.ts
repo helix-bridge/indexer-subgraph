@@ -15,6 +15,7 @@ export class EventService implements OnModuleInit {
     async onModuleInit() {
         this.logger.log("event service start");
         this.chainManager.scaners.forEach((scaner, index) => {
+            this.logger.log(`start to scan ${scaner.chainId}`);
             this.taskService.addInterval(
                 `${scaner.chainId}`,
                 scaner.scanInterval,

@@ -86,7 +86,6 @@ networks:
   - id: 1
     name: ethereum
     urls:
-      - url: https://eth.llamarpc.com
       - url: https://rpc.ankr.com/eth
       - url: https://1rpc.io/eth
       - url: https://rpc.builder0x69.io
@@ -95,6 +94,7 @@ networks:
     start_block: 19537485
     scan_range: 2000
     scan_interval: 5000
+    rewrite: true
     reorg: 100
     contracts:
       - name: MsglineMessager

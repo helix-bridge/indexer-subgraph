@@ -24,7 +24,6 @@ networks:
     name: arbitrum
     urls:
       - url: https://arb1.arbitrum.io/rpc
-      - url: https://arbitrum.llamarpc.com
       - url: https://rpc.ankr.com/arbitrum
       - url: https://1rpc.io/arb
       - url: https://arb-pokt.nodies.app
@@ -40,7 +39,6 @@ networks:
     urls:
       - url: https://polygon-rpc.com
       - url: https://rpc.ankr.com/polygon
-      - url: https://polygon.llamarpc.com
       - url: https://endpoints.omniatech.io/v1/matic/mainnet/public
       - url: https://rpc-mainnet.matic.quiknode.pro
       - url: https://polygon-pokt.nodies.app
@@ -81,6 +79,7 @@ networks:
     start_block: 18398789
     scan_range: 2000
     scan_interval: 5000
+    write: true
     reorg: 40
     contracts:
       - name: LnDefaultBridge

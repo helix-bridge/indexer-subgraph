@@ -99,6 +99,7 @@ networks:
     start_block: 19537485
     scan_range: 2000
     scan_interval: 5000
+    rewrite: true
     reorg: 5
     contracts:
       - name: MsglineMessager

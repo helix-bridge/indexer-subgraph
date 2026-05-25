@@ -58,9 +58,11 @@ networks:
   - id: 46
     name: darwinia
     urls:
-      - url: https://rpc.darwinia.network
-      - url: https://darwinia-rpc.dcdao.box
-      - url: https://darwinia-rpc.dwellir.com
+      - url: https://ethereum-public.nodies.app
+      - url: https://1rpc.io/eth
+      - url: https://rpc.mevblocker.io
+      - url: https://rpc.eth.gateway.fm
+      - url: https://mainnet.gateway.tenderly.co
     start_block: 1423237
     scan_range: 1500
     scan_interval: 3000
@@ -71,13 +73,13 @@ networks:
   - id: 1
     name: ethereum
     urls:
-      - url: https://rpc.ankr.com/eth
+      - url: https://ethereum-public.nodies.app
       - url: https://1rpc.io/eth
-      - url: https://rpc.builder0x69.io
-      - url: https://eth-mainnet.public.blastapi.io
-      - url: https://rpc.flashbots.net
-    start_block: 18398789
-    scan_range: 2000
+      - url: https://rpc.mevblocker.io
+      - url: https://rpc.eth.gateway.fm
+      - url: https://mainnet.gateway.tenderly.co
+    start_block: 19537485
+    scan_range: 500
     scan_interval: 5000
     rewrite: true
     contracts:

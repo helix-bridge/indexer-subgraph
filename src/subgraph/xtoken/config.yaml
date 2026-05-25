@@ -86,13 +86,13 @@ networks:
   - id: 1
     name: ethereum
     urls:
-      - url: https://rpc.ankr.com/eth
+      - url: https://ethereum-public.nodies.app
       - url: https://1rpc.io/eth
-      - url: https://rpc.builder0x69.io
-      - url: https://eth-mainnet.public.blastapi.io
-      - url: https://rpc.flashbots.net
+      - url: https://rpc.mevblocker.io
+      - url: https://rpc.eth.gateway.fm
+      - url: https://mainnet.gateway.tenderly.co
     start_block: 19537485
-    scan_range: 2000
+    scan_range: 500
     scan_interval: 5000
     rewrite: true
     reorg: 100

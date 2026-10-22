@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:24.22.1-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN yarn install
@@ -8,7 +8,7 @@ RUN INDEXER_MODE=fast yarn generate && yarn build && mv dist dist-fast
 RUN rm -rf src/.generate
 RUN INDEXER_MODE=slow yarn generate && yarn build && mv dist dist-slow
 
-FROM node:20-alpine AS indexer-bridge-runner
+FROM node:24.22.1-alpine AS indexer-bridge-runner
 WORKDIR /app
 COPY --from=builder /app/dist-fast ./dist-fast
 COPY --from=builder /app/dist-slow ./dist-slow
